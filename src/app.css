@@ -54,4 +54,32 @@ body {
     width: 5em;
     border: 2px solid black;
     background-color: white;
+    cursor: pointer;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    animation: fadeIn 2000ms forwards;
+}
+
+.fadeOut {
+    animation: fadeOut 2000ms forwards;
 }

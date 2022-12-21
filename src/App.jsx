@@ -4,13 +4,13 @@ import { FaTwitter } from "react-icons/fa";
 import "./app.css";
 
 const quoteAPI = 'https://api.quotable.io/random';
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       quote: "",
       author: "",
+      btn: true,
     };
 
     this.newQuote = this.newQuote.bind(this);
@@ -30,8 +30,7 @@ class App extends Component {
     });
   }
 
-  newQuote = (event) => {
-    event.preventDefault();
+  newQuote = () => {
     fetch(quoteAPI)
     .then((response) => response.json())
     .then((response) => {
@@ -43,11 +42,24 @@ class App extends Component {
     .catch((error) => {
       console.error('Error: ' + error);
     });
+
   }
 
+  handleClick = () => {
+    this.setState({
+      btn: !this.state.btn
+    })
+
+    setTimeout(
+      () => this.setState({ btn: !this.state.btn }), 
+      2000);
+  };
+
   render() {
+    let fadeAnimation = this.state.btn ? 'fadeIn' : 'fadeOut';
+
     return (
-      <div className="wrapper" id="quote-box">
+      <div className={`wrapper ${fadeAnimation}`} id="quote-box">
         <div id="text">
           <i>
             <FaQuoteLeft />
@@ -65,7 +77,13 @@ class App extends Component {
               </i>
             </a>
           </button>
-          <button id="new-quote" className="button" onClick={this.newQuote}>New Quote</button>
+          <button 
+          id="new-quote" 
+          className='button'
+          onClick={() => {
+            this.handleClick();
+            setTimeout(() => this.newQuote(),1500);
+          } }>New Quote</button>
         </div>
       </div>
     );
